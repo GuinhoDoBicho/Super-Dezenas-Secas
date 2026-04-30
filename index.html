@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Dezenas Secas Do Guinho</title>
+    <style>
+        /* CSS - Estilização e Simetria */
+        body {
+            background: linear-gradient(135deg, #4b0082, #8a2be2);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #333;
+            text-align: center;
+            padding: 20px;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            max-width: 500px;
+            margin: 20px auto;
+            border: 3px solid #32cd32;
+        }
+
+        h1 { color: #4b0082; margin-bottom: 15px; font-size: 24px; }
+
+        .sugestao-box {
+            background: #f0fff0;
+            padding: 12px;
+            border: 2px dashed #32cd32;
+            margin-bottom: 20px;
+            font-weight: bold;
+            color: #2e8b57;
+            border-radius: 8px;
+        }
+
+        .seletor-dezenas {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .dezena-btn {
+            padding: 12px;
+            border: 2px solid #8a2be2;
+            background: white;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .dezena-btn.selected {
+            background: #8a2be2;
+            color: white;
+        }
+
+        /* Padronização de botões para simetria */
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .main-btn {
+            flex: 1 1 140px; /* Garante que os botões tentem ter tamanhos parecidos */
+            max-width: 200px;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .btn-gerar { background: #32cd32; }
+        .btn-limpar { background: #666; }
+        .btn-whats { background: #25d366; }
+        .btn-doar { 
+            background: #009ee3; /* Azul Mercado Pago */
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .main-btn:hover { opacity: 0.8; transform: translateY(-2px); }
+
+        #resultado {
+            margin-top: 20px;
+            text-align: left;
+            max-height: 250px;
+            overflow-y: auto;
+            border-radius: 8px;
+        }
+
+        .comb-item {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 16px;
+        }
+
+        .acerto-destaque {
+            background-color: #7cfc00 !important;
+            color: #000;
+            font-weight: bold;
+            border: 2px solid #006400;
+        }
+
+        .conferidor-area {
+            margin-top: 20px;
+            padding: 20px;
+            border-top: 2px solid #8a2be2;
+            background: #f9f9f9;
+            border-radius: 0 0 15px 15px;
+        }
+
+        input[type="number"] {
+            width: 60px;
+            padding: 10px;
+            border: 2px solid #8a2be2;
+            border-radius: 5px;
+            text-align: center;
+            margin: 5px;
+        }
+
+        footer { margin-top: 30px; font-size: 14px; color: #adff2f; font-weight: bold; padding-bottom: 20px; }
+
+        /* Estilo do Modal (Popup) */
+        #modalApoio {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+        }
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 30px;
+            border: 5px solid #32cd32;
+            width: 80%;
+            max-width: 400px;
+            border-radius: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+
+<div id="modalApoio">
+    <div class="modal-content">
+        <p>AJUDE O SITE SE MANTER E LHE AJUDAR.</p>
+        <button class="main-btn btn-gerar" onclick="fecharModal()">OK</button>
+    </div>
+</div>
+
+<div class="container">
+    <h1>Super Dezenas Secas Do Guinho</h1>
+
+    <div class="sugestao-box" id="sugestaoDia">Carregando sugestão...</div>
+
+    <p>Selecione 5 dezenas:</p>
+    <div class="seletor-dezenas" id="gridDezenas"></div>
+
+    <div class="btn-group">
+        <button class="main-btn btn-gerar" onclick="gerarFechamento()">Gerar Fechamento</button>
+        <button class="main-btn btn-limpar" onclick="limparTudo()">Limpar</button>
+        <button class="main-btn btn-whats" onclick="compartilhar()">WhatsApp</button>
+        <a href="https://mpago.la/2Hvokm3" target="_blank" class="main-btn btn-doar">Fazer Doação</a>
+    </div>
+
+    <div class="conferidor-area">
+        <h3>Conferidor</h3>
+        <input type="number" id="conf1" min="0" max="9" placeholder="1º">
+        <input type="number" id="conf2" min="0" max="9" placeholder="2º">
+        <button class="main-btn btn-gerar" style="background: #8a2be2; width: 100%; margin-top: 10px;" onclick="conferir()">Conferir Agora</button>
+    </div>
+
+    <div id="resultado"></div>
+</div>
+
+<footer>Criado por Guinho Do Bicho</footer>
+
+<script>
+    let selecionados = [];
+    let combinacoesAtuais = [];
+    const grid = document.getElementById('gridDezenas');
+
+    // Inicialização do Grid
+    for(let i=0; i<=9; i++) {
+        let btn = document.createElement('button');
+        btn.innerText = i;
+        btn.className = 'dezena-btn';
+        btn.onclick = () => selecionar(i, btn);
+        grid.appendChild(btn);
+    }
+
+    function selecionar(num, btn) {
+        if (selecionados.includes(num)) {
+            selecionados = selecionados.filter(n => n !== num);
+            btn.classList.remove('selected');
+        } else if (selecionados.length < 5) {
+            selecionados.push(num);
+            btn.classList.add('selected');
+        }
+    }
+
+    // Lógica de Sugestão Diária
+    function carregarSugestao() {
+        const hoje = new Date().toDateString();
+        let seed = hoje.split('').reduce((a, b) => a + b.charCodeAt(0), 0);
+        let sugestao = [];
+        while(sugestao.length < 5) {
+            let n = seed % 10;
+            if(!sugestao.includes(n)) sugestao.push(n);
+            seed++;
+        }
+        document.getElementById('sugestaoDia').innerText = "Sugestão de hoje: " + sugestao.join(' - ');
+    }
+    carregarSugestao();
+
+    // Lógica de Fechamento (20 combinações)
+    function gerarFechamento() {
+        if(selecionados.length < 5) return alert("Selecione 5 dezenas!");
+        
+        let combs = [];
+        for(let i=0; i<selecionados.length; i++) {
+            for(let j=i+1; j<selecionados.length; j++) {
+                combs.push([selecionados[i], selecionados[j]]);
+            }
+        }
+        let reversas = combs.map(c => [c[1], c[0]]);
+        combinacoesAtuais = [...combs, ...reversas];
+        
+        const div = document.getElementById('resultado');
+        div.innerHTML = "<h4>Resultados:</h4>";
+        combinacoesAtuais.forEach((c, index) => {
+            div.innerHTML += `<div class="comb-item" id="comb-${index}">${index+1}º: ${c[0]} - ${c[1]}</div>`;
+        });
+    }
+
+    function conferir() {
+        const r1 = parseInt(document.getElementById('conf1').value);
+        const r2 = parseInt(document.getElementById('conf2').value);
+        if(isNaN(r1) || isNaN(r2)) return alert("Preencha o conferidor!");
+
+        combinacoesAtuais.forEach((c, index) => {
+            const el = document.getElementById(`comb-${index}`);
+            if(c[0] === r1 && c[1] === r2) el.classList.add('acerto-destaque');
+            else el.classList.remove('acerto-destaque');
+        });
+    }
+
+    function limparTudo() {
+        selecionados = [];
+        combinacoesAtuais = [];
+        document.querySelectorAll('.dezena-btn').forEach(b => b.classList.remove('selected'));
+        document.getElementById('resultado').innerHTML = "";
+        document.getElementById('conf1').value = "";
+        document.getElementById('conf2').value = "";
+    }
+
+    function compartilhar() {
+        if(combinacoesAtuais.length === 0) return alert("Gere o fechamento primeiro!");
+        let texto = "*Super Dezenas Secas Do Guinho*\n\n";
+        combinacoesAtuais.forEach((c, i) => { texto += `${i+1}º: ${c[0]}-${c[1]}\n`; });
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(texto)}`);
+    }
+
+    // Lógica do Pop-up (1 min e 30 seg)
+    function mostrarModal() {
+        document.getElementById('modalApoio').style.display = 'block';
+    }
+    function fecharModal() {
+        document.getElementById('modalApoio').style.display = 'none';
+    }
+    setInterval(mostrarModal, 90000); // 90.000ms = 1m 30s
+
+    // Bloqueios
+    document.onkeydown = function(e) {
+        if(e.keyCode == 123 || (e.ctrlKey && e.keyCode == 85)) return false;
+    };
+</script>
+
+</body>
+</html>
