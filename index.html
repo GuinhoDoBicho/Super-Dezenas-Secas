@@ -5,158 +5,162 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Super Dezenas Secas Do Guinho</title>
     <style>
-        /* CSS - Estilização e Simetria */
         body {
-            background: linear-gradient(135deg, #4b0082, #8a2be2);
-            font-family: 'Segoe UI', Arial, sans-serif;
-            color: #333;
-            text-align: center;
-            padding: 20px;
-            min-height: 100vh;
+            background-image: url('https://i.ibb.co/Tx8rTVKh/Gemini-Generated-Image-nd6belnd6belnd6b-1.png'); 
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
 
         .container {
-            background: #ffffff;
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background-color: rgba(255, 255, 255, 0.94);
+            width: 92%;
             max-width: 500px;
             margin: 20px auto;
-            border: 3px solid #32cd32;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            border: 3px solid #8a2be2;
+            text-align: center;
+            box-sizing: border-box;
         }
 
-        h1 { color: #4b0082; margin-bottom: 15px; font-size: 24px; }
+        h1 { color: #4b0082; margin-bottom: 10px; font-size: 24px; }
 
-        .sugestao-box {
-            background: #f0fff0;
-            padding: 12px;
+        .suggestion-box {
+            background-color: #f0fff0;
+            padding: 10px;
             border: 2px dashed #32cd32;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             font-weight: bold;
             color: #2e8b57;
             border-radius: 8px;
         }
 
-        .seletor-dezenas {
+        .number-grid {
             display: grid;
             grid-template-columns: repeat(5, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 8px;
+            margin-bottom: 15px;
         }
 
-        .dezena-btn {
-            padding: 12px;
-            border: 2px solid #8a2be2;
+        .number-btn {
             background: white;
-            cursor: pointer;
+            color: #4b0082;
+            border: 2px solid #8a2be2;
             border-radius: 8px;
+            padding: 10px;
             font-size: 18px;
             font-weight: bold;
+            cursor: pointer;
             transition: 0.2s;
         }
 
-        .dezena-btn.selected {
+        .number-btn.selected {
             background: #8a2be2;
             color: white;
         }
 
-        /* Padronização de botões para simetria */
+        /* Área de Botões de Ação */
         .btn-group {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
             gap: 10px;
-            margin-bottom: 20px;
+            justify-content: center;
+            margin-bottom: 10px;
         }
 
         .main-btn {
-            flex: 1 1 140px; /* Garante que os botões tentem ter tamanhos parecidos */
-            max-width: 200px;
-            border: none;
             padding: 12px;
+            border: none;
             border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            text-transform: uppercase;
             color: white;
-            transition: 0.3s;
-        }
-
-        .btn-gerar { background: #32cd32; }
-        .btn-limpar { background: #666; }
-        .btn-whats { background: #25d366; }
-        .btn-doar { 
-            background: #009ee3; /* Azul Mercado Pago */
-            text-decoration: none;
-            display: inline-flex;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 14px;
+            transition: 0.2s;
+            display: flex;
             align-items: center;
             justify-content: center;
+            box-sizing: border-box;
+        }
+
+        .btn-gerar { background: #32cd32; flex: 2; }
+        .btn-limpar { background: #666; flex: 1; }
+        .btn-whats { background: #25d366; width: 100%; margin-bottom: 10px; }
+        
+        /* CORREÇÃO DA SIMETRIA DO BOTÃO DOAÇÃO */
+        .btn-doar { 
+            background: #009ee3; 
+            text-decoration: none; 
+            width: 100%; 
+            height: 50px; /* Altura fixa para manter simetria */
+            margin-bottom: 15px;
             font-size: 14px;
-        }
-
-        .main-btn:hover { opacity: 0.8; transform: translateY(-2px); }
-
-        #resultado {
-            margin-top: 20px;
-            text-align: left;
-            max-height: 250px;
-            overflow-y: auto;
-            border-radius: 8px;
-        }
-
-        .comb-item {
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            font-family: 'Courier New', Courier, monospace;
-            font-size: 16px;
-        }
-
-        .acerto-destaque {
-            background-color: #7cfc00 !important;
-            color: #000;
-            font-weight: bold;
-            border: 2px solid #006400;
-        }
-
-        .conferidor-area {
-            margin-top: 20px;
-            padding: 20px;
-            border-top: 2px solid #8a2be2;
-            background: #f9f9f9;
-            border-radius: 0 0 15px 15px;
-        }
-
-        input[type="number"] {
-            width: 60px;
-            padding: 10px;
-            border: 2px solid #8a2be2;
-            border-radius: 5px;
             text-align: center;
-            margin: 5px;
         }
 
-        footer { margin-top: 30px; font-size: 14px; color: #adff2f; font-weight: bold; padding-bottom: 20px; }
+        .main-btn:active { transform: scale(0.98); }
 
-        /* Estilo do Modal (Popup) */
+        /* Mural de Doadores */
+        .donor-mural {
+            background: #f3e5f5;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #8a2be2;
+            margin-bottom: 15px;
+        }
+        .donor-mural h3 { color: #4b0082; margin: 0 0 8px 0; font-size: 18px; }
+        .donor-list { font-weight: bold; color: #333; font-size: 15px; line-height: 1.4; }
+
+        .conferidor-section {
+            border-top: 2px solid #8a2be2;
+            padding-top: 15px;
+            background: #f9f9f9;
+            border-radius: 0 0 12px 12px;
+        }
+
+        .conferidor-inputs input {
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            text-align: center;
+            border: 2px solid #8a2be2;
+            border-radius: 8px;
+            margin: 0 5px;
+        }
+
+        #resultado { margin-top: 15px; text-align: left; }
+        .comb-item { padding: 8px; border-bottom: 1px solid #ddd; font-family: monospace; }
+        .acerto-destaque { background-color: #7cfc00 !important; font-weight: bold; border: 2px solid #006400; }
+
+        footer { margin-top: 15px; font-weight: bold; color: #4b0082; font-size: 13px; }
+
+        /* Popup */
         #modalApoio {
             display: none;
             position: fixed;
-            z-index: 9999;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.7);
+            z-index: 10000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
         }
         .modal-content {
-            background-color: white;
-            margin: 15% auto;
-            padding: 30px;
-            border: 5px solid #32cd32;
-            width: 80%;
-            max-width: 400px;
+            background: white;
+            margin: 25% auto;
+            padding: 20px;
+            border: 4px solid #32cd32;
+            width: 85%; max-width: 320px;
             border-radius: 15px;
+            text-align: center;
             font-weight: bold;
         }
     </style>
@@ -166,111 +170,119 @@
 <div id="modalApoio">
     <div class="modal-content">
         <p>AJUDE O SITE SE MANTER E LHE AJUDAR.</p>
-        <button class="main-btn btn-gerar" onclick="fecharModal()">OK</button>
+        <button class="main-btn btn-gerar" style="width:100%" onclick="fecharModal()">ENTENDI</button>
     </div>
 </div>
 
 <div class="container">
     <h1>Super Dezenas Secas Do Guinho</h1>
 
-    <div class="sugestao-box" id="sugestaoDia">Carregando sugestão...</div>
+    <div class="suggestion-box" id="sugestaoDia">Carregando...</div>
 
-    <p>Selecione 5 dezenas:</p>
-    <div class="seletor-dezenas" id="gridDezenas"></div>
+    <p style="margin: 5px 0;">Selecione 5 dezenas (0 a 9):</p>
+    <div class="number-grid" id="gridDezenas"></div>
 
     <div class="btn-group">
-        <button class="main-btn btn-gerar" onclick="gerarFechamento()">Gerar Fechamento</button>
+        <button class="main-btn btn-gerar" onclick="gerarFechamento()">Gerar 20 Jogos</button>
         <button class="main-btn btn-limpar" onclick="limparTudo()">Limpar</button>
-        <button class="main-btn btn-whats" onclick="compartilhar()">WhatsApp</button>
-        <a href="https://mpago.la/2Hvokm3" target="_blank" class="main-btn btn-doar">Fazer Doação</a>
     </div>
 
-    <div class="conferidor-area">
-        <h3>Conferidor</h3>
-        <input type="number" id="conf1" min="0" max="9" placeholder="1º">
-        <input type="number" id="conf2" min="0" max="9" placeholder="2º">
-        <button class="main-btn btn-gerar" style="background: #8a2be2; width: 100%; margin-top: 10px;" onclick="conferir()">Conferir Agora</button>
+    <button class="main-btn btn-whats" onclick="compartilhar()">WhatsApp</button>
+
+    <a href="https://mpago.la/2Hvokm3" target="_blank" class="main-btn btn-doar">FAZER DOAÇÃO (MERCADO PAGO)</a>
+
+    <div class="donor-mural">
+        <h3>🏆 Mural de Doadores</h3>
+        <div class="donor-list">
+            ⭐ José Bonifácio <br>
+            ⭐ Donsolto
+        </div>
+    </div>
+
+    <div class="conferidor-section">
+        <h3 style="margin:0 0 10px 0;">Conferidor</h3>
+        <div class="conferidor-inputs">
+            <input type="number" id="conf1" min="0" max="9" placeholder="1º">
+            <input type="number" id="conf2" min="0" max="9" placeholder="2º">
+        </div>
+        <button class="main-btn btn-gerar" style="background:#8a2be2; width:95%; margin: 10px auto;" onclick="conferir()">Conferir Agora</button>
     </div>
 
     <div id="resultado"></div>
-</div>
 
-<footer>Criado por Guinho Do Bicho</footer>
+    <footer>Criado por Guinho Do Bicho</footer>
+</div>
 
 <script>
     let selecionados = [];
     let combinacoesAtuais = [];
-    const grid = document.getElementById('gridDezenas');
 
-    // Inicialização do Grid
+    // Grid de Números
+    const grid = document.getElementById('gridDezenas');
     for(let i=0; i<=9; i++) {
         let btn = document.createElement('button');
         btn.innerText = i;
-        btn.className = 'dezena-btn';
-        btn.onclick = () => selecionar(i, btn);
+        btn.className = 'number-btn';
+        btn.onclick = () => {
+            if(selecionados.includes(i)) {
+                selecionados = selecionados.filter(n => n !== i);
+                btn.classList.remove('selected');
+            } else if(selecionados.length < 5) {
+                selecionados.push(i);
+                btn.classList.add('selected');
+            }
+        };
         grid.appendChild(btn);
     }
 
-    function selecionar(num, btn) {
-        if (selecionados.includes(num)) {
-            selecionados = selecionados.filter(n => n !== num);
-            btn.classList.remove('selected');
-        } else if (selecionados.length < 5) {
-            selecionados.push(num);
-            btn.classList.add('selected');
-        }
-    }
-
-    // Lógica de Sugestão Diária
-    function carregarSugestao() {
+    // Sugestão Diária
+    function atualizarSugestao() {
         const hoje = new Date().toDateString();
         let seed = hoje.split('').reduce((a, b) => a + b.charCodeAt(0), 0);
-        let sugestao = [];
-        while(sugestao.length < 5) {
+        let s = [];
+        while(s.length < 5) {
             let n = seed % 10;
-            if(!sugestao.includes(n)) sugestao.push(n);
+            if(!s.includes(n)) s.push(n);
             seed++;
         }
-        document.getElementById('sugestaoDia').innerText = "Sugestão de hoje: " + sugestao.join(' - ');
+        document.getElementById('sugestaoDia').innerText = "Sugestão de hoje: " + s.join(' - ');
     }
-    carregarSugestao();
+    atualizarSugestao();
 
-    // Lógica de Fechamento (20 combinações)
+    // Fechamento 5 p/ 2 (10 jogos) + Reversas (10 jogos) = 20
     function gerarFechamento() {
-        if(selecionados.length < 5) return alert("Selecione 5 dezenas!");
-        
+        if(selecionados.length < 5) return alert("Escolha 5 dezenas!");
         let combs = [];
-        for(let i=0; i<selecionados.length; i++) {
-            for(let j=i+1; j<selecionados.length; j++) {
+        for(let i=0; i<5; i++) {
+            for(let j=i+1; j<5; j++) {
                 combs.push([selecionados[i], selecionados[j]]);
             }
         }
         let reversas = combs.map(c => [c[1], c[0]]);
         combinacoesAtuais = [...combs, ...reversas];
         
-        const div = document.getElementById('resultado');
-        div.innerHTML = "<h4>Resultados:</h4>";
-        combinacoesAtuais.forEach((c, index) => {
-            div.innerHTML += `<div class="comb-item" id="comb-${index}">${index+1}º: ${c[0]} - ${c[1]}</div>`;
+        const resDiv = document.getElementById('resultado');
+        resDiv.innerHTML = "<h4>Suas 20 Combinações:</h4>";
+        combinacoesAtuais.forEach((c, idx) => {
+            resDiv.innerHTML += `<div class="comb-item" id="comb-${idx}">${idx+1}º: ${c[0]} - ${c[1]}</div>`;
         });
     }
 
     function conferir() {
-        const r1 = parseInt(document.getElementById('conf1').value);
-        const r2 = parseInt(document.getElementById('conf2').value);
-        if(isNaN(r1) || isNaN(r2)) return alert("Preencha o conferidor!");
-
-        combinacoesAtuais.forEach((c, index) => {
-            const el = document.getElementById(`comb-${index}`);
-            if(c[0] === r1 && c[1] === r2) el.classList.add('acerto-destaque');
+        const d1 = parseInt(document.getElementById('conf1').value);
+        const d2 = parseInt(document.getElementById('conf2').value);
+        if(isNaN(d1) || isNaN(d2)) return alert("Preencha o conferidor!");
+        
+        combinacoesAtuais.forEach((c, idx) => {
+            const el = document.getElementById(`comb-${idx}`);
+            if(c[0] === d1 && c[1] === d2) el.classList.add('acerto-destaque');
             else el.classList.remove('acerto-destaque');
         });
     }
 
     function limparTudo() {
         selecionados = [];
-        combinacoesAtuais = [];
-        document.querySelectorAll('.dezena-btn').forEach(b => b.classList.remove('selected'));
+        document.querySelectorAll('.number-btn').forEach(b => b.classList.remove('selected'));
         document.getElementById('resultado').innerHTML = "";
         document.getElementById('conf1').value = "";
         document.getElementById('conf2').value = "";
@@ -278,24 +290,17 @@
 
     function compartilhar() {
         if(combinacoesAtuais.length === 0) return alert("Gere o fechamento primeiro!");
-        let texto = "*Super Dezenas Secas Do Guinho*\n\n";
-        combinacoesAtuais.forEach((c, i) => { texto += `${i+1}º: ${c[0]}-${c[1]}\n`; });
-        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(texto)}`);
+        let t = "*Super Dezenas Secas Do Guinho*\n\n";
+        combinacoesAtuais.forEach((c, i) => t += `${i+1}º: ${c[0]}-${c[1]}\n`);
+        window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(t)}`);
     }
 
-    // Lógica do Pop-up (1 min e 30 seg)
-    function mostrarModal() {
-        document.getElementById('modalApoio').style.display = 'block';
-    }
-    function fecharModal() {
-        document.getElementById('modalApoio').style.display = 'none';
-    }
-    setInterval(mostrarModal, 90000); // 90.000ms = 1m 30s
+    // Popup 1m 30s
+    function fecharModal() { document.getElementById('modalApoio').style.display = 'none'; }
+    setInterval(() => { document.getElementById('modalApoio').style.display = 'block'; }, 90000);
 
-    // Bloqueios
-    document.onkeydown = function(e) {
-        if(e.keyCode == 123 || (e.ctrlKey && e.keyCode == 85)) return false;
-    };
+    // Proteção
+    document.onkeydown = (e) => { if(e.keyCode == 123 || (e.ctrlKey && e.keyCode == 85)) return false; };
 </script>
 
 </body>
